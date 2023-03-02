@@ -1,0 +1,157 @@
+                                                       Lab:  Assignment#1
+Q1.
+SELECT
+	last_name || ', ' || job_id "Employee and Title"
+FROM 
+	employees;
+
+Q2.
+SELECT
+	last_name Employee,
+	salary "Monthly Salary"
+FROM
+	employees
+WHERE
+	salary BETWEEN 
+        5000  AND 12000;
+
+Q3.
+SELECT
+	last_name
+FROM
+	employees
+WHERE
+	last_name LIKE '__a%';
+Q4.
+SELECT
+	last_name
+FROM 
+	employees
+WHERE
+	last_name LIKE '%a%'
+	AND
+	last_name LIKE '%e%';
+
+Q5.
+SELECT
+	last_name,
+	job_id,
+	salary
+FROM
+	employees
+WHERE
+	salary NOT IN (2500,3500,7000)
+	AND
+	job_id IN ('SA_REP' , 'ST_CLERK');
+
+Q6.
+SELECT
+	employee_id,
+	last_name,
+	salary,
+	ROUND(salary * 0.155, 0) + salary "NEW SALARY",
+	ROUND(salary * 0.155, 0) Increase
+FROM
+	employees;
+
+Q7.
+SELECT
+	INITCAP(last_name) "Employee",
+	LENGTH(last_name) "Length"
+FROM
+	employees
+WHERE 
+	last_name LIKE 'J%'
+	OR last_name LIKE 'M%'
+	OR last_name LIKE 'A%'
+ORDER BY
+	last_name;
+
+Q8.
+SELECT
+	last_name,
+	ROUND(MONTHS_BETWEEN(sysdate , hire_date )) MONTH_WORKED
+FROM 
+	employees
+ORDER BY
+	MONTHS_BETWEEN(sysdate , hire_date );
+
+Q9.
+SELECT
+	last_name EMPLOYEE,
+	LPAD(salary,15,'$') SALARY
+FROM
+	employees;
+	
+Q10.
+SELECT
+	RPAD(last_name, 8) || ' ' || RPAD(' ' , salary/(1000) + 1, '*') EMPLOYEES_AND_THEIR_SALARIES
+FROM
+	employees
+ORDER BY
+	salary DESC;
+
+Q11.
+SELECT
+	last_name, 
+	hire_date,
+	TO_CHAR(
+		NEXT_DAY(
+			ADD_MONTHS(hire_date,6),
+		'MONDAY'),
+		'fmDay,
+		 "the" Ddspth "of" Month,
+		 YYYY'
+		) REVIEW
+FROM
+	employees;
+
+Q12.
+
+SELECT
+	job_id,
+	CASE job_id
+		WHEN 'AD_PRES' THEN 'A'
+		WHEN 'ST_MAN' THEN 'B'
+		WHEN 'IT_PROG' THEN 'C'
+		WHEN 'SA_REP' THEN 'D'
+		WHEN 'ST_CLERK' THEN 'E'
+		ELSE '0' END GRADE
+FROM
+employees;
+
+Q13.
+SELECT
+	job_id,
+	COUNT(*) COUNTING
+FROM
+	employees
+GROUP BY
+	job_id;
+
+Q14.
+
+SELECT
+	department_id,
+	MAX(salary)-MIN(salary) DIFFRENCE
+FROM
+	employees
+GROUP BY
+	department_id
+ORDER BY
+	department_id DESC;
+
+Q15.
+SELECT 
+	job_id job,
+	SUM(DECODE(department_id , 20, salary))/count(department_id) "Dept 20" ,
+	SUM(DECODE(department_id , 50, salary))/count(department_id)  "Dept 50" ,
+	SUM(DECODE(department_id , 80, salary))/count(department_id)  "Dept 80" ,
+	SUM(DECODE(department_id , 90, salary))/count(department_id)  "Dept 90" ,
+	SUM(salary) TOTAL
+FROM 
+	employees
+GROUP BY 
+	job_id;
+
+
